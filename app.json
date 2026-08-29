@@ -1,5 +1,5 @@
 {
-  "name": "GAAJU-MD ULTRA",
+  "name": "MITCH CHRISTIANO-MD ULTRA",
   "credits": "Credits to Silent Wolf - Kenya",
   "description": "A powerful WhatsApp bot with 255+ commands — AI, Games, Group Management, Media Tools, Anti-ViewOnce, Auto-reactions & more. Built with Baileys & Node.js.",
   "image": "https://raw.githubusercontent.com/Xchristech2/GAAJU-MD-ULTRA/main/assets/xd-logo.jpg",
@@ -20,7 +20,7 @@
     },
     "OWNER_NUMBER": {
       "description": "Your WhatsApp number with country code, no + (e.g. 2348069675806)",
-      "value": "",
+      "value": "256740702063",
       "required": true
     },
     "PREFIX": {
@@ -30,22 +30,22 @@
     },
     "BOT_NAME": {
       "description": "Name of your bot",
-      "value": "GAAJU-MD ULTRA",
+      "value": "MITCH CHRISTIANO MD ULTRA",
       "required": false
     },
     "OWNER_NAME": {
       "description": "Your name shown in menus",
-      "value": "",
+      "value": "MITCH CHRISTIANO OFFICIAL",
       "required": false
     },
     "MODE": {
       "description": "public = everyone can use | private = owner only",
-      "value": "public",
+      "value": "private",
       "required": false
     },
     "TIME_ZONE": {
       "description": "Timezone for time commands (e.g. Africa/Lagos, America/New_York, Asia/Kolkata)",
-      "value": "Africa/Lagos",
+      "value": "Africa/Nairobi",
       "required": false
     },
     "OPENAI_API_KEY": {
