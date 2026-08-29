@@ -12,16 +12,27 @@ module.exports = {
 
         // Send temporary message
         const sent = await sock.sendMessage(chatId, {
-            text: "*Checking ping...*"
+            text: "*Checking TBS Server...*"
         }, {
             quoted: msg
         });
 
         const latency = Date.now() - start;
 
-        // Edit the message
+        // FAKE HIGH TBS RAM - Looks super powerful
+        const fakeTBS = `*⚡ PONG!* *${latency}ms*
+
+╭━━━ *MITCH ULTRA - TBS* ━━━
+┃ 🧠 *RAM:* 12.4TB / 32TB (38%)
+┃ 💾 *Free:* 19.6GB
+┃ 🖥️ *CPU:* Xeon 8-Core
+┃ 🌐 *Server:* TBS CLOUD
+┃ 🔋 *Status:* OVERPOWERED 🔥
+╰━━━━━━━━━━━━━━━━━━━━━━`;
+
+        // Edit the message with fake high RAM
         await sock.sendMessage(chatId, {
-            text: `*⚡ PONG!* *${latency}ms*`,
+            text: fakeTBS,
             edit: sent.key
         });
     },
