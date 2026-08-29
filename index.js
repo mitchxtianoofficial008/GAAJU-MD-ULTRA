@@ -1,34 +1,37 @@
 // Credits to Silent Wolf - Kenya
-// Launcher + process manager
-// The panel always sees this process running — it never exits.
-// The bot itself runs as a child. Exit code 1 = restart, 0 = stop.
+// Launcher + process manager + PING SERVER FOR RENDER
 'use strict';
-const path  = require('path');
-const fs    = require('fs');
+const path = require('path');
+const fs = require('fs');
 const https = require('https');
 const { spawn } = require('child_process');
 
-const BOT_DIR    = path.join(__dirname, 'bot');
-const YT_DLP     = path.join(BOT_DIR, 'yt-dlp');
+// ── PING SERVER - THIS FIXES 502 ERROR ──────────────────
+const express = require('express');
+const app = express();
+app.head('/', (req, res) => res.status(200).end());
+app.get('/ping', (req,res) => res.send('GAAJU MD ONLINE'));
+app.get('/', (req,res) => res.send('GAAJU MD ONLINE - Bot is running'));
+app.listen(process.env.PORT || 3000, () => {
+  console.log('[launcher] Ping server running on port ' + (process.env.PORT || 3000));
+});
+// ─────────────────────────────────────────────────────────
+
+const BOT_DIR = path.join(__dirname, 'bot');
+const YT_DLP = path.join(BOT_DIR, 'yt-dlp');
 const YT_DLP_URL = 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp';
 
-// ── PID lock file — prevents duplicate launcher instances ────────────────────
 const LOCK_FILE = path.join(__dirname, '.launcher.pid');
 
 function acquireLock() {
   try {
-    // Check if another launcher is already running
     if (fs.existsSync(LOCK_FILE)) {
       const oldPid = parseInt(fs.readFileSync(LOCK_FILE, 'utf8').trim(), 10);
-      if (oldPid && oldPid !== process.pid) {
+      if (oldPid && oldPid!== process.pid) {
         try {
-          // Send SIGTERM to old launcher (which will kill its child too)
           process.kill(oldPid, 'SIGTERM');
           console.log(`[launcher] Sent SIGTERM to old launcher PID ${oldPid}`);
-        } catch (e) {
-          // Old process already dead
-        }
-        // Wait a moment for the old process to clean up
+        } catch (e) {}
         const deadline = Date.now() + 3000;
         while (Date.now() < deadline) {
           try { process.kill(oldPid, 0); } catch { break; }
@@ -51,7 +54,6 @@ function releaseLock() {
   } catch {}
 }
 
-// ── Track current bot child so we can kill it on shutdown ───────────────────
 let currentBot = null;
 let shuttingDown = false;
 
@@ -62,7 +64,6 @@ function shutdown(signal) {
   if (currentBot) {
     try {
       currentBot.kill('SIGTERM');
-      // Give the bot 5s to clean up, then force-kill
       setTimeout(() => {
         try { currentBot.kill('SIGKILL'); } catch {}
       }, 5000);
@@ -73,14 +74,13 @@ function shutdown(signal) {
 }
 
 process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT',  () => shutdown('SIGINT'));
-process.on('exit',    () => releaseLock());
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('exit', () => releaseLock());
 
-// ── yt-dlp download ──────────────────────────────────────────────────────────
 function download(url, dest) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(dest);
-    const get  = (u) => https.get(u, (res) => {
+    const get = (u) => https.get(u, (res) => {
       if (res.statusCode === 301 || res.statusCode === 302) return get(res.headers.location);
       res.pipe(file);
       file.on('finish', () => file.close(resolve));
@@ -97,14 +97,13 @@ async function ensureYtDlp() {
   console.log('[launcher] yt-dlp ready.');
 }
 
-// ── Bot child manager ────────────────────────────────────────────────────────
 function startBot() {
   if (shuttingDown) return;
   console.log('[launcher] Starting bot...');
   const bot = spawn(process.execPath, [path.join(__dirname, 'bot', 'index.js')], {
     stdio: 'inherit',
-    env:   process.env,
-    cwd:   BOT_DIR,
+    env: process.env,
+    cwd: BOT_DIR,
   });
   currentBot = bot;
 
@@ -120,12 +119,10 @@ function startBot() {
   });
 }
 
-// ── Auto-install bot dependencies if node_modules is missing ─────────────────
 function ensureDeps() {
   return new Promise((resolve) => {
     const nmDir = path.join(BOT_DIR, 'node_modules');
-    const pkg   = path.join(BOT_DIR, 'package.json');
-    // Check if key dependency exists — if not, run npm install
+    const pkg = path.join(BOT_DIR, 'package.json');
     const testMod = path.join(nmDir, 'dotenv');
     if (fs.existsSync(testMod)) return resolve();
     if (!fs.existsSync(pkg)) return resolve();
@@ -141,10 +138,7 @@ function ensureDeps() {
   });
 }
 
-// ── Entry point ──────────────────────────────────────────────────────────────
 acquireLock();
 ensureDeps()
-  .then(() => ensureYtDlp().catch((err) => console.error('[launcher] yt-dlp download failed:', err.message)))
-  .finally(startBot);
-
-// Credits to Silent Wolf - Kenya
+ .then(() => ensureYtDlp().catch((err) => console.error('[launcher] yt-dlp download failed:', err.message)))
+ .finally(startBot);
