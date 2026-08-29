@@ -459,7 +459,7 @@ module.exports = {
             const mode =
                 (
                     cfg.MODE ||
-                    'public'
+                    'private'
                 ).toUpperCase();
 
             const {
@@ -665,7 +665,7 @@ module.exports = {
             );
 
             lines.push(
-                '> Powered by ᴄʜʀɪꜱ ɢᴀᴀᴊᴜ'
+                '> Powered by CHRISTIANO MITCH'
             );
 
             const caption =
