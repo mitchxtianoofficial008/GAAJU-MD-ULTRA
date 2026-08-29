@@ -24,7 +24,8 @@ module.exports = {
 
 ╭━━━ *MITCH ULTRA - TBS* ━━━
 ┃ 🧠 *RAM:* 12.4TB / 32TB (38%)
-┃ 💾 *Free:* 19.6GB
+┃ 🧠 *STORAGE:* 0.94GB / 2TB (SSD)
+┃ 💾 *Free:* 1.6TB
 ┃ 🖥️ *CPU:* Xeon 8-Core
 ┃ 🌐 *Server:* TBS CLOUD
 ┃ 🔋 *Status:* OVERPOWERED 🔥
