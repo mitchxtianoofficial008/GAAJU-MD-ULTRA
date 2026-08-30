@@ -4,6 +4,7 @@ const path = require('path');
 const FILE = path.join(__dirname, '../data/autoconfig.json');
 
 const DEFAULTS = {
+    mode:                {},
     antidelete:          { enabled: false, mode: 'chat' },
     antideletestatus:    { enabled: false },
     autoviewstatus:      { enabled: true },
@@ -13,7 +14,7 @@ const DEFAULTS = {
     reactdev:            { enabled: false, emoji: '🔥' },
     antigroupstatus:     { enabled: false },
     antistatusmention:   { enabled: false },
-    antispam:            {},
+    antispam:            { enabled: true },
 };
 
 function load() {
