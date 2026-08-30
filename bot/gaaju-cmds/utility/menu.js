@@ -10,7 +10,7 @@ const CMDS_DIR = path.join(__dirname, '..');
 
 const CUSTOM_MENU_IMAGE = path.join(
     __dirname,
-    '../../../assets/menu-image.jpg'
+    '../../../assets/d42f7a5f-ab06-4e58-860f-d5f283e2f658.png'
 );
 
 let BOT_VERSION = 'v1.2.0';
