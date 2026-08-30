@@ -7183,7 +7183,7 @@ async function handleViewOnceDetection(sock, msg) {
     } else {
       // Legacy flat config
       enabled = config.enabled !== false && config.mode !== "off";
-      deliveryMode = config.mode === "public" ? "chat" : "private";
+      deliveryMode = config.mode === "private" ? "chat" : "private";
     }
     if (!enabled) {
       return;
@@ -7744,7 +7744,7 @@ async function handleIncomingMessage(sock, msg) {
             }
             if (cmd.ownerOnly && !isOwnerW && !isSudoW) {
               await sock.sendMessage(chatId, {
-                text: `❌ *Owner Only Command*\n\nThe \`${cmdName}\` command can only be used by the bot owner or sudo users.`
+                text: `❌ *Owner Only Command*\n\nThe \`${cmdName}\` command can only be used by the bot owner.`
               }, {
                 quoted: msg
               });
@@ -7884,7 +7884,7 @@ async function handleIncomingMessage(sock, msg) {
 
     // Quick mode gate BEFORE rate limiter — prevents info leaks in silent/groups/dms modes
     {
-      const _qMode = (_cache_bot_mode?.mode || BOT_MODE || "public").toLowerCase();
+      const _qMode = (_cache_bot_mode?.mode || BOT_MODE || "private").toLowerCase();
       if (_qMode !== "public" && _qMode !== "buttons" && _qMode !== "channel" && _qMode !== "default") {
         const _qOwner = jidManager.isOwner(msg);
         let _qSudo = jidManager.isSudo(msg);
