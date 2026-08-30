@@ -20,7 +20,6 @@ http.createServer((req, res) => {
   console.log(`[launcher] Ping server running on port ${PORT}`);
 });
 
-require('keepalive.js');
 // ─────────────────────────────────────────
 
 const BOT_DIR = path.join(__dirname, 'bot');
