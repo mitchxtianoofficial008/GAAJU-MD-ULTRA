@@ -1,5 +1,5 @@
-// Credits to Silent Wolf - Kenya
-// Launcher + process manager + PING SERVER FOR RENDER (no express)
+// Credits to Mitch Christiano Official- Uganda - FIXED FOR CODE 0
+// Launcher + process manager + PING SERVER FOR RENDER
 'use strict';
 const path = require('path');
 const fs = require('fs');
@@ -7,7 +7,7 @@ const https = require('https');
 const http = require('http');
 const { spawn } = require('child_process');
 
-// ── PING SERVER - FIXES 502 - Uses built-in http ──
+// ── PING SERVER ──
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => {
   if (req.method === 'HEAD') {
@@ -15,17 +15,14 @@ http.createServer((req, res) => {
     return res.end();
   }
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('GAAJU MD ONLINE');
+  res.end('MITCH MD ONLINE - 32TB TBS');
 }).listen(PORT, () => {
   console.log(`[launcher] Ping server running on port ${PORT}`);
 });
 
-// ─────────────────────────────────────────
-
 const BOT_DIR = path.join(__dirname, 'bot');
 const YT_DLP = path.join(BOT_DIR, 'yt-dlp');
 const YT_DLP_URL = 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp';
-
 const LOCK_FILE = path.join(__dirname, '.launcher.pid');
 
 function acquireLock() {
@@ -102,12 +99,9 @@ function startBot() {
   bot.on('exit', (code) => {
     currentBot = null;
     if (shuttingDown) return;
-    if (code === 1) {
-      console.log('[launcher] Bot exited 1 — restarting in 3s...');
-      setTimeout(startBot, 3000);
-    } else {
-      console.log(`[launcher] Bot stopped (code ${code}).`);
-    }
+    // ✅ FIXED: Restart on BOTH code 0 and 1
+    console.log(`[launcher] Bot stopped (code ${code}) — restarting in 3s...`);
+    setTimeout(startBot, 3000);
   });
 }
 
