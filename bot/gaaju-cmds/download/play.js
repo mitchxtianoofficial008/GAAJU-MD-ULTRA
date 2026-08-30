@@ -142,60 +142,6 @@ module.exports = {
 
             /*
             |--------------------------------------------------------------------------
-            | THUMBNAIL
-            |--------------------------------------------------------------------------
-            */
-
-            let thumbnailBuffer = null;
-
-            if (song.thumbnail_base64) {
-
-                try {
-
-                    const base64Data =
-                        song.thumbnail_base64
-                            .split(',')[1];
-
-                    if (base64Data) {
-
-                        thumbnailBuffer =
-                            Buffer.from(
-                                base64Data,
-                                'base64'
-                            );
-                    }
-
-                } catch {}
-            }
-
-            if (
-                !thumbnailBuffer &&
-                song.thumbnail
-            ) {
-
-                try {
-
-                    const imgRes =
-                        await axios.get(
-                            song.thumbnail,
-                            {
-                                responseType:
-                                    'arraybuffer',
-
-                                timeout: 15000
-                            }
-                        );
-
-                    thumbnailBuffer =
-                        Buffer.from(
-                            imgRes.data
-                        );
-
-                } catch {}
-            }
-
-            /*
-            |--------------------------------------------------------------------------
             | AUDIO
             |--------------------------------------------------------------------------
             */
