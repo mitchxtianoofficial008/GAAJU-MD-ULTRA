@@ -5637,6 +5637,7 @@ async function startBot(loginMode = "auto", loginData = null) {
       type
     }) => {
       try {
+        return;
         const _t0 = messages?.[0];
         // Raw dump: log EVERY upsert so we can see what's arriving at all
         const _t0Keys = _t0?.message ? Object.keys(_t0.message) : [];
