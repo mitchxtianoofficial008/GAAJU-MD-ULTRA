@@ -249,7 +249,16 @@ module.exports = {
             |--------------------------------------------------------------------------
             */
 
-            const caption = '🎵' ${trunc(song.title, 50)}';
+            const caption =
+`┏━━❐ 🎵 PLAY MUSIC ❐
+┃
+┃ ✦ Title:
+┃   ${trunc(song.title, 50)}
+┃
+┃ ✦ Duration:
+┃   ${song.duration || 'Unknown'}
+┗━━❐
+🎶 ${botName}`;
 
             /*
             |--------------------------------------------------------------------------
@@ -257,7 +266,25 @@ module.exports = {
             |--------------------------------------------------------------------------
             */
 
-            // THUMBNAIL INFO DISABLED - NO UPPER MENU
+            if (
+                thumbnailBuffer &&
+                thumbnailBuffer.length > 1000
+            ) {
+
+                await sock.sendMessage(
+                    jid,
+                    {
+                        image:
+                            thumbnailBuffer,
+
+                        caption:
+                            caption
+                    },
+                    {
+                        quoted: msg
+                    }
+                );
+            }
 
             /*
             |--------------------------------------------------------------------------
@@ -332,7 +359,20 @@ module.exports = {
             await sock.sendMessage(
                 jid,
                 {
-                    text: '❌ CANNOT FIND THAT SONG TRY AGAIN WITH SUFFICIENT INFO.'
+                    text:
+`┏━━❐ ❌ PLAY ❐
+┃
+┃ ✦ Song:
+┃   ${trunc(query, 50)}
+┃
+┃ ✦ Status:
+┃   Failed
+┃
+┃ ✦ Reason:
+┃   ${error.message || 'Unknown error'}
+┃
+┗━━❐
+⚡ ${botName}`
                 },
                 {
                     quoted: msg
