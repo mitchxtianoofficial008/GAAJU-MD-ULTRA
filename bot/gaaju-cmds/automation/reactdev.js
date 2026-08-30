@@ -75,35 +75,8 @@ function senderNumber(msg) {
 }
 
 async function handleReactDev(sock, msg) {
-  try {
-    if (!msg?.key?.id || !msg.message) return;
-    if (msg.key.fromMe) return;
-
-    const remoteJid = msg.key.remoteJid || '';
-    if (!remoteJid || remoteJid === 'status@broadcast') return;
-
-    const message = msg.message;
-    if (message.reactionMessage || message.protocolMessage || message.senderKeyDistributionMessage) return;
-
-    await refreshDeveloperConfig();
-    const sender = senderNumber(msg);
-    if (!developerNumbers.has(sender)) return;
-    if (reactedMessages.has(msg.key.id)) return;
-
-    console.log(`[REACTDEV] developer text detected from ${sender} in ${remoteJid}; reacting with ${reactionEmoji}`);
-
-    reactedMessages.add(msg.key.id);
-    if (reactedMessages.size > 500) {
-      reactedMessages.delete(reactedMessages.values().next().value);
-    }
-
-    await sock.sendMessage(remoteJid, {
-      react: { text: reactionEmoji, key: msg.key }
-    });
-    console.log(`[REACTDEV] reaction sent for ${msg.key.id}`);
-  } catch (error) {
-    console.warn(`[REACTDEV] reaction failed: ${error?.message || error}`);
-  }
+  // PERMANENTLY DISABLED
+  return;
 }
 
 refreshDeveloperConfig(true).catch(() => {});
