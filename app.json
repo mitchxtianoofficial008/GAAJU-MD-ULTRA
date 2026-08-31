@@ -1,10 +1,10 @@
 {
   "name": "MITCH CHRISTIANO-MD ULTRA",
-  "credits": "Credits to Silent Wolf - Kenya",
-  "description": "A powerful WhatsApp bot with 255+ commands — AI, Games, Group Management, Media Tools, Anti-ViewOnce, Auto-reactions & more. Built with Baileys & Node.js.",
+  "credits": "Credits to Mitch Christiano - Uganda",
+  "description": "A powerful WhatsApp bot with unlimited commands — AI, Games, Group Management, Media Tools, Anti-ViewOnce, Auto-reactions & more. Built with Baileys & Node.js.",
   "image": "https://raw.githubusercontent.com/Xchristech2/GAAJU-MD-ULTRA/main/assets/xd-logo.jpg",
   "logo": "https://raw.githubusercontent.com/Xchristech2/GAAJU-MD-ULTRA/main/assets/xd-logo.jpg",
-  "repository": "https://github.com/Xchristech2/GAAJU-MD-ULTRA",
+  "repository": "https://https://github.com/mitchxtianoofficial008/GAAJU-MD-ULTRA",
   "keywords": [
     "whatsapp",
     "bot",
@@ -19,7 +19,7 @@
       "required": true
     },
     "OWNER_NUMBER": {
-      "description": "Your WhatsApp number with country code, no + (e.g. 2348069675806)",
+      "description": "Your WhatsApp number with country code, no + (e.g. 256740702063)",
       "value": "256740702063",
       "required": true
     },
