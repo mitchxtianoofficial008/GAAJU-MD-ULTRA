@@ -1,7 +1,7 @@
 {
-  "name": "gaaju-md-ultra",
-  "version": "1.2.0",
-  "description": "GAAJU-MD WhatsApp Bot",
+  "name": "mitch-md-ultra",
+  "version": "12.1.2.0",
+  "description": "MITCH-CHRISTIANO-MD WhatsApp Bot",
   "main": "index.js",
   "type": "commonjs",
   "engines": {
