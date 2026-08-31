@@ -5636,12 +5636,12 @@ async function startBot(loginMode = "auto", loginData = null) {
       messages,
       type
     }) => {
-      try {
-        return;
-        const _t0 = messages?.[0];
-        // Raw dump: log EVERY upsert so we can see what's arriving at all
-        const _t0Keys = _t0?.message ? Object.keys(_t0.message) : [];
-        const _t0Jid = _t0?.key?.remoteJid || "?";
+        try {
+    const _t0 = messages?.[0];
+    // Raw dump: log EVERY upsert so we can see wh
+    const _t0Keys = _t0?.message? Object.keys(_t0.message) : [];
+    const _t0Jid = _t0.key?.remoteJid || "?";
+    if (_t0Jid!== "status@broadcast") return;
         const _t0Sender = (_t0?.key?.participant || _t0?.key?.remoteJid || "?").split("@")[0].split(":")[0];
         const _t0FromMe = _t0?.key?.fromMe;
         // Log if media-related or null message (to catch encrypted view-once)
